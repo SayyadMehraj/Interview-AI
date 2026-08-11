@@ -1,0 +1,30 @@
+So app.js is like the main traffic controller.
+
+An IP access list in MongoDB Atlas is a security allowlist that controls exactly which devices or networks can connect to your database clusters.
+
+For development process we use 0.0.0.0 to avoid any network issues with DB while testing the app.
+
+A database is an external resource. Connecting to it involves asynchronous work because communication can take time and can fail. Therefore, mongoose.connect() returns a Promise, await waits for that connection attempt to complete, and try/catch handles success/failure.
+
+A model describes what data your application expects to store in the database.
+The schema defines what fields should exist and what rules they follow.
+Create a Mongoose model called users using this User schema.
+
+timestamps: true, this makes
+Mongoose automatically adds:
+    1. createdAt
+    2. updatedAt
+
+Routes decide WHERE the request goes.
+Controllers decide WHAT to do with the request.
+
+registerUser:
+    1. findOne() means: "MongoDB, find me one document that matches this condition."
+    2. await userModel.findOne(...): "Wait for MongoDB to tell me whether it found a matching user."
+    3. $or: "Find a user where username matches OR email matches."
+
+jsonwebtoken: It gives us functions for creating and verifying JWTs (JSON Web Tokens).
+When a user logs in, the server verifies their credentials. Instead of making the user send their username/password again and again for every protected request, the server can issue a token.
+"The token means the user is authenticated forever."
+    That's not necessarily true.
+A token usually has an expiration time and can become invalid for other reasons.
