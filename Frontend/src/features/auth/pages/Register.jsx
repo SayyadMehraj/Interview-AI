@@ -1,7 +1,7 @@
-import React,{useState} from 'react'
+import {React,useState} from 'react'
 //Such that user can go to login page 
 import {useNavigate,Link} from 'react-router'
-import { useAuth } from '../hooks/useAuth.js';
+import { useAuth } from '../hooks/useAuth.js'
 
 const Register = () => {
 
@@ -11,7 +11,7 @@ const Register = () => {
   const [password, setPassword] = useState("")
   
   //Bringing the hook layer -> Here we need to set the loading & register a new user
-  const [loading, handleRegister] = useAuth()
+  const {loading, handleRegister} = useAuth()
 
   const handleSubmit = async (e) => {
         e.preventDefault();

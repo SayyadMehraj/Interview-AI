@@ -9,7 +9,7 @@ export const AuthProvider = ({children}) => {
 
     //Intially there will be no loading but in the production level
     //we will make it to true - (User Hydration)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     return (
         <AuthContext.Provider value={{user,setUser,loading,setLoading}}>
