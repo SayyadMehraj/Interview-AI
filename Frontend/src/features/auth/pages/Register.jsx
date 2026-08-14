@@ -1,14 +1,28 @@
-import React from 'react'
+import React,{useState} from 'react'
 //Such that user can go to login page 
 import {useNavigate,Link} from 'react-router'
+import { useAuth } from '../hooks/useAuth.js';
 
 const Register = () => {
 
   const navigate = useNavigate();
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  
+  //Bringing the hook layer -> Here we need to set the loading & register a new user
+  const [loading, handleRegister] = useAuth()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
         e.preventDefault();
-  }
+        await handleRegister({username,email,password})
+        navigate("/")
+    }
+
+    if(loading){
+        return (<main><h1>Loading....</h1></main>)
+    }
+
 
   return (
     <main>
@@ -19,15 +33,21 @@ const Register = () => {
 
                 <div className="input-group">
                     <label htmlFor="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter username" />
+                    <input 
+                    onChange={(e) => {setUsername(e.target.value)}}
+                    type="text" id="username" name="username" placeholder="Enter username" />
                 </div>
                 <div className="input-group">
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter email address" />
+                    <input 
+                    onChange={(e) => {setEmail(e.target.value)}}
+                    type="email" id="email" name="email" placeholder="Enter email address" />
                 </div>
                 <div className="input-group">
                     <label htmlFor="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter password" />
+                    <input 
+                    onChange={(e) => {setPassword(e.target.value)}}
+                    type="password" id="password" name="password" placeholder="Enter password" />
                 </div>
 
                 <button className="button primary-button">Register</button>
