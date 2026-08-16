@@ -1,9 +1,10 @@
+// Read the .env file and load its variables into process.env
+//This syntax is used to avoid env file reading later 
+//Before Importing anything we should configure dotenv to avoid env failures
+import "dotenv/config";
 import app from "./src/app.js";
-import dotenv from "dotenv";
 import connectToDB from "./src/config/database.js";
 
-// Read the .env file and load its variables into process.env
-dotenv.config()
 
 // Call the database function 
 connectToDB()
