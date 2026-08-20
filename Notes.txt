@@ -28,3 +28,26 @@ When a user logs in, the server verifies their credentials. Instead of making th
 "The token means the user is authenticated forever."
     That's not necessarily true.
 A token usually has an expiration time and can become invalid for other reasons.
+
+Frontend
+
+Axios is a JavaScript library used to make HTTP requests from your application to a server/API.
+Axios helps your frontend talk to a backend server.
+Axios helps your frontend talk to a backend server.
+
+Sending Cookies to the server the error we get because:
+“For cross-origin requests, the browser doesn’t send cookies by default. We use withCredentials: true to tell the browser to include the user’s cookies with the Axios request. 
+The server can then read those cookies and, depending on the cookie configuration, set or modify them through the response.”
+
+The server can send a Set-Cookie response header, and the browser decides whether to store/update that cookie
+
+
+AI 
+Structured model outputs: 
+    Ensure text responses from the model adhere to a JSON schema you define.
+
+    Structured Outputs is a feature that ensures the model will always generate responses that adhere to your supplied JSON Schema,
+    so you don’t need to worry about the model omitting a required key, or hallucinating an invalid enum value.
+
+    JSON is one of the most widely used formats in the world for applications to exchange data.
+
