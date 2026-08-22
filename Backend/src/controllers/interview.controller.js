@@ -79,7 +79,7 @@ async function generateInterviewReportController(req, res) {
             message: "Interview Report generated successfully.",
             interviewReport
         })
-    } catch (err) {
+    } catch (error) {
         console.error("Generate interview report error:", error);
 
         return res.status(500).json({
@@ -89,6 +89,56 @@ async function generateInterviewReportController(req, res) {
 
 }
 
+/**
+ * @name getInterviewReportByIdController
+ * @description Gets the interview report by interview-id
+ * @access Private
+ */
+async function getInterviewReportByIdController(req, res) {
 
+    //We will be getting the interview id from the url
+    const { interviewId } = req.params
 
-export { generateInterviewReportController }
+    //find the interview report from the database
+    const interviewReport = await interviewReportModel.findOne({
+        _id: interviewId,
+        user: req.user.id
+    })
+
+    //If such interview report doesn't exist
+    if (!interviewReport) {
+        return res.status(404).json({
+            message: "Interview Report Not Found."
+        })
+    }
+
+    res.status(200).json({
+        message: "Interview report fetched successfully.",
+        interviewReport
+    })
+
+}
+
+/**
+ * @name
+ * @description Get all the interview reports of logged-in user
+ * @access Private
+ */
+async function getAllInterviewReportsController(req, res) {
+
+    const interviewReports = await interviewReportModel
+        .find({
+            user: req.user.id
+        })
+        .sort({
+            createdAt: -1
+        })
+        .select("-resume -selfDescription -jobDescription -__v -technicalQuestions -behavioralQuestions -skillGaps -preparationPlan")
+
+    res.status(200).json({
+        message: "Interview Reports fetched successfully.",
+        interviewReports
+    })
+}
+
+export { generateInterviewReportController, getInterviewReportByIdController, getAllInterviewReportsController }
