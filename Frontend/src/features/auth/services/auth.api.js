@@ -29,6 +29,10 @@ const api = axios.create({
     withCredentials:true
 })
 
+/**
+ * @description This function is used to register a new user by sending a POST request to the server with the provided username, email, and password. It returns the response data from the server if the request is successful, or logs an error if the request fails.
+ * @param {Object} param0 - An object containing the username, email, and password of the user to be registered.
+ */
 export async function register({username,email,password}) {
     
     try{
@@ -42,6 +46,10 @@ export async function register({username,email,password}) {
     }
 }
 
+/**
+ * @description This function is used to log in a user by sending a POST request to the server with the provided email and password. It returns the response data from the server if the request is successful, or logs an error if the request fails.
+ * @param {Object} param0 - An object containing the email and password of the user to be logged in.
+ */
 export async function login({email,password}) {
     
     try{
@@ -55,6 +63,10 @@ export async function login({email,password}) {
     }
 }
 
+
+/**
+ * @description This function is used to log out the currently logged-in user by sending a GET request to the server. It returns the response data from the server if the request is successful, or logs an error if the request fails.
+ */
 export async function logout() {
     try{
         const response = await api.get("/api/auth/logout")
@@ -65,6 +77,10 @@ export async function logout() {
     }
 }
 
+
+/**
+ * @description This function is used to retrieve the details of the currently logged-in user by sending a GET request to the server. It returns the response data from the server if the request is successful, or logs an error if the request fails.
+ */
 export async function getMe() {
     try{
         const response = await api.get("/api/auth/get-me")
