@@ -121,7 +121,7 @@ async function getInterviewReportByIdController(req, res) {
 
 /**
  * @name
- * @description Get all the interview reports of logged-in user
+ * @description Get list of all the interview reports of logged-in user
  * @access Private
  */
 async function getAllInterviewReportsController(req, res) {

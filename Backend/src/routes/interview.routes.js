@@ -1,6 +1,6 @@
 import express from "express"
 import authUser from "../middlewares/auth.middleware.js"
-import { generateInterviewReportController, getInterviewReportByIdController } from "../controllers/interview.controller.js"
+import { generateInterviewReportController, getInterviewReportByIdController, getAllInterviewReportsController } from "../controllers/interview.controller.js"
 import upload from "../middlewares/file.middleware.js"
 
 const interviewRouter = express.Router()
