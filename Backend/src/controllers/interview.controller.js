@@ -1,6 +1,6 @@
 import { PDFParse } from 'pdf-parse';
 //Getting the ai service
-import generateInterviewReport from '../services/ai.service.js';
+import { generateInterviewReport, generateResumePdf } from '../services/ai.service.js';
 //Getting the interview model
 import interviewReportModel from '../models/interviewReport.model.js';
 
@@ -120,7 +120,7 @@ async function getInterviewReportByIdController(req, res) {
 }
 
 /**
- * @name
+ * @name getAllInterviewReportsController
  * @description Get list of all the interview reports of logged-in user
  * @access Private
  */
@@ -141,4 +141,38 @@ async function getAllInterviewReportsController(req, res) {
     })
 }
 
-export { generateInterviewReportController, getInterviewReportByIdController, getAllInterviewReportsController }
+/**
+ * @name generateResumePdfController
+ * @description Generate a resume PDF based on user self description, resume and job description.
+ * @access Private
+ */
+async function generateResumePdfController(req, res) {
+
+    const { interviewReportId } = req.params
+
+    const interviewReport = await interviewReportModel.findById(interviewReportId)
+
+    if (!interviewReport) {
+        return res.status(404).json({
+            message: "Interview report not found."
+        })
+    }
+
+    const { resume, jobDescription, selfDescription } = interviewReport
+
+    // console.log(req.user.id)
+    // console.log(req.user.username)
+
+    const pdfBuffer = await generateResumePdf({ resume, jobDescription, selfDescription })
+
+    res.set({
+        "Content-Type": "application/pdf",
+        // "Content-Disposition": `attachment; filename=resume_${interviewReportId}.pdf`
+        "Content-Disposition": `attachment: filename = req.user.username_resume.pdf`
+    })
+
+    res.send(pdfBuffer)
+
+}
+
+export { generateInterviewReportController, getInterviewReportByIdController, getAllInterviewReportsController, generateResumePdfController }

@@ -1,6 +1,6 @@
 import express from "express"
 import authUser from "../middlewares/auth.middleware.js"
-import { generateInterviewReportController, getInterviewReportByIdController, getAllInterviewReportsController } from "../controllers/interview.controller.js"
+import { generateInterviewReportController, getInterviewReportByIdController, getAllInterviewReportsController, generateResumePdfController } from "../controllers/interview.controller.js"
 import upload from "../middlewares/file.middleware.js"
 
 const interviewRouter = express.Router()
@@ -27,6 +27,13 @@ interviewRouter.get("/report/:interviewId", authUser, getInterviewReportByIdCont
  * @access private
  */
 interviewRouter.get("/", authUser, getAllInterviewReportsController)
+
+/**
+ * @route POST /api/interview/resume/pdf
+ * @description Generates resume pdf on the basis of user self description, resume and job description
+ * @access private
+ */
+interviewRouter.post("/resume/pdf/:interviewReportId", authUser, generateResumePdfController)
 
 
 export default interviewRouter
