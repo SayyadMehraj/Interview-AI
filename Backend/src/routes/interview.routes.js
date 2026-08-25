@@ -29,7 +29,7 @@ interviewRouter.get("/report/:interviewId", authUser, getInterviewReportByIdCont
 interviewRouter.get("/", authUser, getAllInterviewReportsController)
 
 /**
- * @route POST /api/interview/resume/pdf
+ * @route POST /api/interview/resume/pdf/:interviewReportId
  * @description Generates resume pdf on the basis of user self description, resume and job description
  * @access private
  */
