@@ -1,6 +1,6 @@
-import { generateInterviewReport, getInterviewReportById, getAllInterviewReports } from "../services/interview.api.js"
+import { generateInterviewReport, getInterviewReportById, getAllInterviewReports, generateResumePdf } from "../services/interview.api.js"
 import { InterviewContext } from "../interview.context.jsx"
-import { useContext,useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { useParams } from "react-router"
 
 export const useInterview = () => {
@@ -64,16 +64,35 @@ export const useInterview = () => {
         return response.interviewReports
     }
 
+    const getResumePdf = async (interviewReportId) => {
+        setLoading(true)
+        let response = null
+
+        try {
+            response = await generateResumePdf({ interviewReportId })
+            const url = window.URL.createObjectURL(new Blob([response], { type: "application/pdf" }))
+            const link = document.createElement("a")
+            link.href = url
+            link.setAttribute("download", `resume_${interviewReportId}.pdf`)
+            document.body.appendChild(link)
+            link.click()
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     //This is similar to the useEffect in useAuth.js where we are checking if the user is on the interview page or on the home page
     //Here were already currently a user generated a report and when an user reloads a page then it shows the same report
     //This is rehydrating 
     useEffect(() => {
-        if(interviewId){
+        if (interviewId) {
             getReportById(interviewId)
-        }else{
+        } else {
             getReports()
         }
-    },[interviewId])
+    }, [interviewId])
 
-    return { loading, report, reports, generateReport, getReportById, getReports }
+    return { loading, report, reports, generateReport, getReportById, getReports, getResumePdf }
 }

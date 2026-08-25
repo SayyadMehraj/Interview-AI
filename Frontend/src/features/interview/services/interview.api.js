@@ -59,3 +59,19 @@ export const getAllInterviewReports = async () => {
         console.log(error)
     }
 }
+
+/**
+ * @description Generates a PDF version of the interview report by sending the interview report ID to the backend API.
+ * @param {string} params.interviewReportId - The ID of the interview report to generate a PDF for.
+ */
+export const generateResumePdf = async ({ interviewReportId }) => {
+    try {
+        const response = await api.post(`/api/interview/resume/pdf/${interviewReportId}`, null, {
+            responseType: "blob"
+        })
+
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
